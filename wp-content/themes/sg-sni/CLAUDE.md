@@ -107,12 +107,19 @@ global colors at post-5.css):
 - **Dark:** `#000000`
 - **Dark-alt:** `#51676E` (slate gray text)
 
-- **Heading font:** `Plus Jakarta Sans` 600 (Google Fonts)
-- **Body font:** `Inter` 400 (Google Fonts)
-- These were extracted by reading the live site's *rendered* Astra
-  inline styles, not the Elementor kit declarations (which list
-  Roboto/Roboto Slab but are overridden by Astra). Body base size is
-  18px to match staging; H1=64, H2=48, H3=24, H4=20, H5=18, H6=15.
+- **All typography:** `Poppins` (Google Fonts) — single family, weight
+  range 400–800. Headings render at 700, body at 400.
+- The font-extraction sequence on Shapiro is non-obvious:
+  1. Elementor kit (post-5.css) declares Roboto / Roboto Slab — NOT
+     what's rendered.
+  2. Astra inline styles declare Plus Jakarta Sans / Inter — applies
+     to chrome (page title, default Astra content) but NOT to most
+     of the page.
+  3. Elementor's per-section font settings override both of the
+     above with Poppins on every actual content widget.
+  Lesson: extract the rendered font by checking the visible page,
+  not the kit CSS or Astra's declared globals — at least on this
+  Elementor-heavy site. Confirmed visually 2026-05-14.
 - No accent script font (different from TexBuilt — SNI is polished
   B2B, not industrial).
 - **Border default-width:** 1px (thin/polished, vs. TexBuilt's 3px)
