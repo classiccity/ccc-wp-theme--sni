@@ -1,0 +1,22 @@
+# Ignore everything at every level.
+/*
+
+# Un-ignore repo metadata.
+!/.gitignore
+
+# Un-ignore the path down to our versioned theme folders.
+!/wp-content/
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/classic-city-core
+!/wp-content/themes/sg-sni
+
+# Un-ignore the whitelisted mu-plugin.
+!/wp-content/mu-plugins/
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins/ccc-fix-auth-header.php
+
+# macOS cruft should never be tracked, even inside whitelisted folders.
+**/.DS_Store
+**/._*
