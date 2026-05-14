@@ -115,5 +115,15 @@
                 "style": "regular"
             }
         }
+    },
+    "styles": {
+        "elements": {
+            "h1": { "typography": { "fontWeight": "500", "textTransform": "none" } },
+            "h2": { "typography": { "fontWeight": "500", "textTransform": "none" } },
+            "h3": { "typography": { "fontWeight": "500", "textTransform": "none" } },
+            "h4": { "typography": { "fontWeight": "500", "textTransform": "none" } },
+            "h5": { "typography": { "fontWeight": "500", "textTransform": "none" } },
+            "h6": { "typography": { "fontWeight": "500", "textTransform": "none" } }
+        }
     }
 }
