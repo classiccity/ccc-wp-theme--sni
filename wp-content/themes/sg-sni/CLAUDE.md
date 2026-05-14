@@ -107,8 +107,12 @@ global colors at post-5.css):
 - **Dark:** `#000000`
 - **Dark-alt:** `#51676E` (slate gray text)
 
-- **Heading font:** `Roboto Slab` (Google Fonts)
-- **Body font:** `Roboto` (Google Fonts)
+- **Heading font:** `Plus Jakarta Sans` 600 (Google Fonts)
+- **Body font:** `Inter` 400 (Google Fonts)
+- These were extracted by reading the live site's *rendered* Astra
+  inline styles, not the Elementor kit declarations (which list
+  Roboto/Roboto Slab but are overridden by Astra). Body base size is
+  18px to match staging; H1=64, H2=48, H3=24, H4=20, H5=18, H6=15.
 - No accent script font (different from TexBuilt — SNI is polished
   B2B, not industrial).
 - **Border default-width:** 1px (thin/polished, vs. TexBuilt's 3px)
