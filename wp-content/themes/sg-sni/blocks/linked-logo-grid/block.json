@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/linked-logo-grid",
+	"title": "Linked Logo Grid",
+	"description": "Clickable grid of client logos sourced from case_study CPT. Each logo links to its case study.",
+	"category": "theme",
+	"icon": "screenoptions",
+	"keywords": [ "logos", "clients", "case studies", "grid" ],
+	"textdomain": "sg-sni",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"color": { "background": true, "text": false },
+		"spacing": { "padding": true, "margin": [ "top", "bottom" ] },
+		"mode": true
+	},
+	"acf": {
+		"mode": "auto",
+		"renderTemplate": "render.php"
+	}
+}

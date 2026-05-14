@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/gravity-form",
+	"title": "Gravity Form",
+	"description": "Embeds a Gravity Form by ID, styled to the SNI theme.",
+	"category": "theme",
+	"icon": "feedback",
+	"keywords": [ "form", "gravity", "contact", "lead" ],
+	"textdomain": "sg-sni",
+	"supports": {
+		"html": false,
+		"align": [ "wide" ],
+		"anchor": true,
+		"color": { "background": true, "text": false },
+		"spacing": { "padding": true, "margin": [ "top", "bottom" ] },
+		"mode": true
+	},
+	"acf": {
+		"mode": "auto",
+		"renderTemplate": "render.php"
+	}
+}

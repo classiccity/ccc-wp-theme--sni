@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/faq",
+	"title": "FAQ Accordion",
+	"description": "Stack of expandable Q&A pairs using native HTML details/summary. Field-driven repeater.",
+	"category": "theme",
+	"icon": "editor-help",
+	"keywords": [ "faq", "accordion", "questions", "qa" ],
+	"textdomain": "sg-sni",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"color": { "background": true, "text": false, "link": false },
+		"spacing": { "padding": true, "margin": [ "top", "bottom" ] },
+		"mode": true
+	},
+	"acf": {
+		"mode": "auto",
+		"renderTemplate": "render.php"
+	}
+}

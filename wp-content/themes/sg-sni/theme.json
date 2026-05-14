@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "color": {
+            "palette": [
+                { "slug": "cta",           "name": "cta",           "color": "#D79851" },
+                { "slug": "cta-alt",       "name": "cta-alt",       "color": "#B07634" },
+                { "slug": "primary",       "name": "primary",       "color": "#183F36" },
+                { "slug": "primary-alt",   "name": "primary-alt",   "color": "#066D58" },
+                { "slug": "secondary",     "name": "secondary",     "color": "#005077" },
+                { "slug": "secondary-alt", "name": "secondary-alt", "color": "#14628A" },
+                { "slug": "light",         "name": "light",         "color": "#FFFFFF" },
+                { "slug": "light-alt",     "name": "light-alt",     "color": "#EFF5FD" },
+                { "slug": "dark",          "name": "dark",          "color": "#000000" },
+                { "slug": "dark-alt",      "name": "dark-alt",      "color": "#51676E" }
+            ]
+        },
+        "typography": {
+            "fontSizes": [
+                { "slug": "x-small", "name": "X Small", "size": "12px" },
+                { "slug": "small",   "name": "Small",   "size": "14px" },
+                { "slug": "medium",  "name": "Medium",  "size": "16px" },
+                { "slug": "large",   "name": "Large",   "size": "18px" },
+                { "slug": "x-large", "name": "X Large", "size": "22px" }
+            ],
+            "fontFamilies": [
+                {
+                    "slug": "heading",
+                    "name": "Heading",
+                    "fontFamily": "'Roboto Slab', Georgia, serif"
+                },
+                {
+                    "slug": "body",
+                    "name": "Body",
+                    "fontFamily": "'Roboto', system-ui, -apple-system, sans-serif"
+                }
+            ]
+        },
+        "spacing": {
+            "spacingSizes": [
+                { "slug": "10",  "name": "10",  "size": "10px" },
+                { "slug": "20",  "name": "20",  "size": "20px" },
+                { "slug": "30",  "name": "30",  "size": "30px" },
+                { "slug": "40",  "name": "40",  "size": "40px" },
+                { "slug": "50",  "name": "50",  "size": "50px" },
+                { "slug": "60",  "name": "60",  "size": "60px" },
+                { "slug": "70",  "name": "70",  "size": "70px" },
+                { "slug": "80",  "name": "80",  "size": "80px" },
+                { "slug": "90",  "name": "90",  "size": "90px" },
+                { "slug": "100", "name": "100", "size": "100px" }
+            ]
+        },
+        "shadow": {
+            "presets": [
+                { "slug": "sm", "name": "Sm", "shadow": "0 2px 4px rgba(0,0,0,0.06)" },
+                { "slug": "md", "name": "Md", "shadow": "0 4px 12px rgba(0,0,0,0.08)" },
+                { "slug": "lg", "name": "Lg", "shadow": "0 8px 24px rgba(0,0,0,0.10)" },
+                { "slug": "xl", "name": "Xl", "shadow": "0 16px 40px rgba(0,0,0,0.12)" }
+            ]
+        },
+        "layout": {
+            "contentSize": "1200px",
+            "wideSize": "1400px"
+        },
+        "custom": {
+            "color": {
+                "cta-opposite":           "#FFFFFF",
+                "cta-alt-opposite":       "#FFFFFF",
+                "primary-opposite":       "#FFFFFF",
+                "primary-alt-opposite":   "#FFFFFF",
+                "secondary-opposite":     "#FFFFFF",
+                "secondary-alt-opposite": "#FFFFFF",
+                "light-opposite":         "#183F36",
+                "light-alt-opposite":     "#183F36",
+                "dark-opposite":          "#FFFFFF",
+                "dark-alt-opposite":      "#FFFFFF"
+            },
+            "fs": {
+                "h-1": "52px",
+                "h-2": "38px",
+                "h-3": "28px",
+                "h-4": "22px",
+                "h-5": "18px",
+                "h-6": "16px"
+            },
+            "radius": {
+                "default": "4px"
+            },
+            "border": {
+                "default-width": "1px"
+            },
+            "heading": {
+                "letter-spacing": "-0.01em",
+                "base-font-size": "1.1rem"
+            },
+            "eyebrow": {
+                "letter-spacing": "0.14em"
+            },
+            "body": {
+                "base-font-size": "1rem",
+                "bg": "#FFFFFF"
+            },
+            "btn": {
+                "padding-y": "0.85em",
+                "padding-x": "1.75em"
+            },
+            "layout": {
+                "narrow-size": "800px"
+            },
+            "icons": {
+                "style": "regular"
+            }
+        }
+    }
+}

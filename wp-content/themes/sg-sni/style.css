@@ -1,0 +1,420 @@
+/*
+Theme Name:     Style Guide — Shapiro Negotiations
+Description:    Child theme for Shapiro Negotiations Institute (negotiation, influence, sales training). Built on classic-city-core. Polished B2B aesthetic — forest green / navy / warm gold palette, Roboto + Roboto Slab.
+Author:         Classic City Consulting
+Template:       classic-city-core
+Version:        1.0.0
+Text Domain:    sg-sni
+*/
+
+/* ==================================================================
+ * Polished button styling — softer than TexBuilt's industrial slab.
+ * Roundness pulled from --radius--default (4px), gentle drop shadow
+ * on hover so the CTA reads tactile without becoming aggressive.
+ * ================================================================== */
+.wp-element-button,
+.wp-block-button__link {
+	border-radius: var(--wp--custom--radius--default);
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.wp-element-button:hover,
+.wp-block-button__link:hover {
+	transform: translateY(-1px);
+	box-shadow: var(--wp--preset--shadow--md);
+}
+
+/* ==================================================================
+ * Diagonal section divider — the SNI brand signature.
+ *
+ * Lives as a block style on core/group. When an editor picks
+ * "Diagonal Divider Bottom" from the Styles sidebar, this rule adds
+ * a clip-path-driven slanted bottom edge to the group. The slant
+ * angle (1.5deg) is subtle on wide screens; on mobile we ease back
+ * to 1deg so the cut stays under the breakpoint where it would chew
+ * into content. Pair this with the next group having
+ * `is-style-diagonal-divider-top` so the two slants align tightly.
+ * ================================================================== */
+.is-style-diagonal-divider-bottom {
+	clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+	padding-bottom: 90px !important;
+}
+.is-style-diagonal-divider-top {
+	clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%);
+	margin-top: -60px;
+	padding-top: 90px !important;
+}
+@media (max-width: 768px) {
+	.is-style-diagonal-divider-bottom { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), 0 100%); padding-bottom: 50px !important; }
+	.is-style-diagonal-divider-top    { clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%); margin-top: -30px; padding-top: 50px !important; }
+}
+
+/* ==================================================================
+ * Eyebrow ornament — sharp-regular dot prefix.
+ * The parent theme registers the eyebrow block style on core/paragraph;
+ * we override its star ornament to a small filled circle that reads
+ * cleaner against the SNI palette. Color tracks --cta by default,
+ * inherits text color inside dark panels.
+ * ================================================================== */
+.is-style-eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	letter-spacing: var(--wp--custom--eyebrow--letter-spacing);
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--small);
+}
+.is-style-eyebrow.has-text-align-center {
+	justify-content: center;
+}
+.is-style-eyebrow::before {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: var(--wp--preset--color--cta);
+	flex-shrink: 0;
+}
+.has-primary-background-color .is-style-eyebrow::before,
+.has-dark-background-color .is-style-eyebrow::before,
+.has-secondary-background-color .is-style-eyebrow::before {
+	background-color: var(--wp--preset--color--cta);
+}
+
+/* ==================================================================
+ * Team grid block — 1x card layout.
+ * Card has a subtle border that brightens to the cta gold on hover;
+ * headshot fills the top half (1:1 aspect ratio); meta sits below.
+ * Speaker variant uses the same card but exposes speaker_topics +
+ * speaker_style on hover/reveal.
+ * ================================================================== */
+.sni-team-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: var(--wp--preset--spacing--40);
+}
+.sni-team-card {
+	display: flex;
+	flex-direction: column;
+	background: var(--wp--preset--color--light);
+	border: var(--wp--custom--border--default-width) solid var(--wp--preset--color--light-alt);
+	border-radius: var(--wp--custom--radius--default);
+	overflow: hidden;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.sni-team-card:hover {
+	border-color: var(--wp--preset--color--cta);
+	box-shadow: var(--wp--preset--shadow--md);
+	transform: translateY(-2px);
+}
+.sni-team-card-link {
+	color: inherit;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.sni-team-card-image {
+	aspect-ratio: 1 / 1;
+	background: var(--wp--preset--color--light-alt);
+	object-fit: cover;
+	width: 100%;
+	display: block;
+}
+.sni-team-card-body {
+	padding: var(--wp--preset--spacing--30);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+.sni-team-card-name {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--large);
+	font-weight: 700;
+	color: var(--wp--preset--color--primary);
+	margin: 0;
+}
+.sni-team-card-title {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--dark-alt);
+	margin: 0;
+}
+.sni-team-card-topics {
+	margin-top: var(--wp--preset--spacing--10);
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--secondary);
+}
+
+/* ==================================================================
+ * FAQ / Accordion block — pure CSS using <details>/<summary>.
+ * Each row is a bordered card; the summary is the question (bold,
+ * clickable); the inner content is the answer.
+ * ================================================================== */
+.sni-faq-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+}
+.sni-faq-item {
+	border: var(--wp--custom--border--default-width) solid var(--wp--preset--color--light-alt);
+	border-radius: var(--wp--custom--radius--default);
+	background: var(--wp--preset--color--light);
+	overflow: hidden;
+}
+.sni-faq-item[open] {
+	border-color: var(--wp--preset--color--cta);
+}
+.sni-faq-summary {
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: 700;
+	font-size: var(--wp--preset--font-size--large);
+	color: var(--wp--preset--color--primary);
+	padding: var(--wp--preset--spacing--30);
+	cursor: pointer;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--wp--preset--spacing--20);
+}
+.sni-faq-summary::-webkit-details-marker { display: none; }
+.sni-faq-summary::after {
+	content: "+";
+	font-size: 1.5em;
+	font-weight: 300;
+	transition: transform 0.2s ease;
+	color: var(--wp--preset--color--cta);
+}
+.sni-faq-item[open] .sni-faq-summary::after {
+	content: "−";
+}
+.sni-faq-answer {
+	padding: 0 var(--wp--preset--spacing--30) var(--wp--preset--spacing--30);
+	color: var(--wp--preset--color--dark-alt);
+	line-height: 1.6;
+}
+
+/* ==================================================================
+ * Linked Logo Grid — clickable client cards on the Clients index.
+ * Subtle hover state lifts the logo and tints the bg, signaling the
+ * card is interactive without screaming for attention.
+ * ================================================================== */
+.sni-logo-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: var(--wp--preset--spacing--20);
+}
+.sni-logo-grid-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 3 / 2;
+	padding: var(--wp--preset--spacing--20);
+	background: var(--wp--preset--color--light);
+	border: var(--wp--custom--border--default-width) solid var(--wp--preset--color--light-alt);
+	border-radius: var(--wp--custom--radius--default);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.sni-logo-grid-item:hover {
+	border-color: var(--wp--preset--color--cta);
+	box-shadow: var(--wp--preset--shadow--sm);
+	transform: translateY(-2px);
+}
+.sni-logo-grid-item img {
+	max-width: 100%;
+	max-height: 80px;
+	object-fit: contain;
+	filter: grayscale(100%);
+	opacity: 0.75;
+	transition: filter 0.2s ease, opacity 0.2s ease;
+}
+.sni-logo-grid-item:hover img {
+	filter: grayscale(0%);
+	opacity: 1;
+}
+
+/* ==================================================================
+ * Inline video block — responsive container with poster fallback.
+ * ================================================================== */
+.sni-inline-video {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	background: var(--wp--preset--color--dark);
+	border-radius: var(--wp--custom--radius--default);
+	overflow: hidden;
+}
+.sni-inline-video video,
+.sni-inline-video iframe {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.sni-inline-video-caption {
+	margin-top: var(--wp--preset--spacing--10);
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--dark-alt);
+	text-align: center;
+}
+
+/* ==================================================================
+ * Single team_member layout — sticky meta sidebar + Gutenberg main.
+ * The body content is whatever the editor authored in Gutenberg;
+ * the sidebar renders ACF structured fields.
+ * ================================================================== */
+.sni-bio-layout {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: var(--wp--preset--spacing--60);
+	max-width: var(--wp--style--global--wide-size);
+	margin: 0 auto;
+	padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--40);
+}
+@media (max-width: 900px) {
+	.sni-bio-layout {
+		grid-template-columns: 1fr;
+		gap: var(--wp--preset--spacing--40);
+	}
+}
+.sni-bio-sidebar {
+	position: sticky;
+	top: var(--wp--preset--spacing--40);
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30);
+}
+.sni-bio-headshot {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	border-radius: var(--wp--custom--radius--default);
+	background: var(--wp--preset--color--light-alt);
+	object-fit: cover;
+}
+.sni-bio-meta-block {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.sni-bio-meta-label {
+	font-size: var(--wp--preset--font-size--x-small);
+	letter-spacing: var(--wp--custom--eyebrow--letter-spacing);
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--wp--preset--color--cta);
+}
+.sni-bio-meta-value,
+.sni-bio-meta-list {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--dark-alt);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.sni-bio-meta-list li {
+	padding: 2px 0;
+}
+.sni-bio-name {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--custom--fs--h-2);
+	color: var(--wp--preset--color--primary);
+	margin: 0 0 4px 0;
+	line-height: 1.15;
+}
+.sni-bio-title {
+	font-size: var(--wp--preset--font-size--large);
+	color: var(--wp--preset--color--dark-alt);
+	margin: 0;
+}
+
+/* ==================================================================
+ * Case study spine: client logo hero + result stats strip
+ * (cleaner than rebuilding inside Gutenberg per page).
+ * ================================================================== */
+.sni-case-hero {
+	background: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--primary-opposite);
+	padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--40);
+	text-align: center;
+}
+.sni-case-hero img {
+	max-height: 80px;
+	max-width: 320px;
+	object-fit: contain;
+	margin: 0 auto var(--wp--preset--spacing--30) auto;
+	filter: brightness(0) invert(1);
+}
+.sni-case-hero h1 {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--custom--fs--h-2);
+	margin: 0;
+}
+.sni-case-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: var(--wp--preset--spacing--40);
+	padding: var(--wp--preset--spacing--60) var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--light-alt);
+}
+.sni-case-stat {
+	text-align: center;
+}
+.sni-case-stat-value {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--custom--fs--h-1);
+	color: var(--wp--preset--color--secondary);
+	display: block;
+	line-height: 1;
+}
+.sni-case-stat-label {
+	font-size: var(--wp--preset--font-size--small);
+	letter-spacing: var(--wp--custom--eyebrow--letter-spacing);
+	text-transform: uppercase;
+	color: var(--wp--preset--color--dark-alt);
+	margin-top: 6px;
+	display: block;
+}
+
+/* ==================================================================
+ * Book single — cover + meta block (purchase links).
+ * ================================================================== */
+.sni-book-layout {
+	display: grid;
+	grid-template-columns: 260px 1fr;
+	gap: var(--wp--preset--spacing--60);
+	max-width: var(--wp--style--global--wide-size);
+	margin: 0 auto;
+	padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--40);
+}
+@media (max-width: 768px) {
+	.sni-book-layout {
+		grid-template-columns: 1fr;
+		text-align: center;
+	}
+}
+.sni-book-cover {
+	width: 100%;
+	border-radius: var(--wp--custom--radius--default);
+	box-shadow: var(--wp--preset--shadow--lg);
+}
+.sni-book-buylinks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--10);
+	margin-top: var(--wp--preset--spacing--20);
+}
+.sni-book-buylink {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.5em 1em;
+	background: var(--wp--preset--color--cta);
+	color: var(--wp--preset--color--cta-opposite);
+	text-decoration: none;
+	border-radius: var(--wp--custom--radius--default);
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+}
+.sni-book-buylink:hover {
+	background: var(--wp--preset--color--cta-alt);
+}

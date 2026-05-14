@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/team-grid",
+	"title": "Team Grid",
+	"description": "Dynamic grid of team_member CPT entries. Filter by role taxonomy to render either the team roster or the speaker bureau.",
+	"category": "theme",
+	"icon": "groups",
+	"keywords": [ "team", "people", "speakers", "roster", "bios" ],
+	"textdomain": "sg-sni",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"color": { "background": true, "text": false },
+		"spacing": { "padding": true, "margin": [ "top", "bottom" ] },
+		"mode": true
+	},
+	"acf": {
+		"mode": "auto",
+		"renderTemplate": "render.php"
+	}
+}
