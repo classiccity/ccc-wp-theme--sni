@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/team-video",
+	"title": "Team Member Featured Video Section",
+	"description": "Conditional full-width \"Watch in Action\" section: heading + 16:9 YouTube/Vimeo embed pulled from the featured_video ACF field. Renders absolutely nothing if the field is empty, so the section collapses cleanly when no video is set.",
+	"category": "theme",
+	"icon": "video-alt3",
+	"textdomain": "sg-sni",
+	"render": "file:./render.php",
+	"supports": {
+		"html": false,
+		"inserter": false,
+		"align": [ "full" ]
+	}
+}

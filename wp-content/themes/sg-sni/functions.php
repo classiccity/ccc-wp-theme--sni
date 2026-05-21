@@ -61,6 +61,9 @@ foreach ( glob( get_stylesheet_directory() . '/inc/*.php' ) as $inc_file ) {
  * Diagonal section-divider block styles — the SNI brand signature.
  * "bottom" cuts a slanted bottom edge on a group; "top" mirrors it on the
  * following group so the two slants align tightly.
+ *
+ * Line Above — pre-heading decorative parallelogram bar matching the
+ * button slant shape. CSS defines the actual treatment.
  */
 add_action( 'init', function () {
 	register_block_style( 'core/group', array(
@@ -70,6 +73,10 @@ add_action( 'init', function () {
 	register_block_style( 'core/group', array(
 		'name'  => 'diagonal-divider-top',
 		'label' => __( 'Diagonal Divider Top', 'sg-sni' ),
+	) );
+	register_block_style( 'core/heading', array(
+		'name'  => 'line-above',
+		'label' => __( 'Line Above', 'sg-sni' ),
 	) );
 } );
 

@@ -57,7 +57,7 @@ $wrapper_attrs = get_block_wrapper_attributes( array( 'class' => 'sni-team-grid-
 		<p class="is-style-eyebrow has-text-align-center"><?php echo esc_html( $eyebrow ); ?></p>
 	<?php endif; ?>
 	<?php if ( $heading ) : ?>
-		<h2 class="sni-team-grid-heading has-text-align-center"><?php echo esc_html( $heading ); ?></h2>
+		<h2 class="sni-team-grid-heading has-text-align-center is-style-line-above"><?php echo esc_html( $heading ); ?></h2>
 	<?php endif; ?>
 	<div class="sni-team-grid">
 		<?php while ( $query->have_posts() ) : $query->the_post();
@@ -68,7 +68,7 @@ $wrapper_attrs = get_block_wrapper_attributes( array( 'class' => 'sni-team-grid-
 			<article class="sni-team-card">
 				<a class="sni-team-card-link" href="<?php echo esc_url( get_permalink() ); ?>">
 					<?php if ( $headshot_id ) : ?>
-						<?php echo wp_get_attachment_image( $headshot_id, 'medium_large', false, array(
+						<?php echo wp_get_attachment_image( $headshot_id, array( 600, 600 ), false, array(
 							'class' => 'sni-team-card-image',
 							'alt'   => esc_attr( get_the_title() ),
 						) ); ?>

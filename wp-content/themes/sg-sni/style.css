@@ -8,19 +8,71 @@ Text Domain:    sg-sni
 */
 
 /* ==================================================================
- * Polished button styling — softer than TexBuilt's industrial slab.
- * Roundness pulled from --radius--default (4px), gentle drop shadow
- * on hover so the CTA reads tactile without becoming aggressive.
+ * SNI brand primitive: parallelogram slant shape.
+ *
+ * Used by buttons + the "Line Above" heading style + anywhere else we
+ * want the same slanted-edge motif. Each user element can override
+ * --sni-slant locally to tune the offset (e.g., thinner elements want
+ * a smaller offset to keep the angle from getting too steep).
+ *
+ * The clip-path expression below is the canonical SNI parallelogram.
+ * If you change the shape (e.g., flip slant direction), do it here and
+ * everything that opts in stays consistent.
+ * ================================================================== */
+:root {
+	--sni-slant: 14px;
+}
+.sni-parallelogram {
+	clip-path: polygon(var(--sni-slant) 0, 100% 0, calc(100% - var(--sni-slant)) 100%, 0 100%);
+}
+
+/* ==================================================================
+ * Buttons — parallelogram via the shared --sni-slant. clip-path clips
+ * box-shadow, so we keep the 1px translateY lift but swap background
+ * to cta-alt on hover instead of using a drop-shadow.
  * ================================================================== */
 .wp-element-button,
 .wp-block-button__link {
-	border-radius: var(--wp--custom--radius--default);
-	transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+	clip-path: polygon(var(--sni-slant) 0, 100% 0, calc(100% - var(--sni-slant)) 100%, 0 100%);
+	border-radius: 0 !important;
+	padding: 0.85em 2.25em;
+	transition: transform 0.15s ease, background-color 0.15s ease;
 }
 .wp-element-button:hover,
 .wp-block-button__link:hover {
 	transform: translateY(-1px);
-	box-shadow: var(--wp--preset--shadow--md);
+}
+.wp-element-button.has-cta-background-color:hover,
+.wp-block-button__link.has-cta-background-color:hover {
+	background-color: var(--wp--preset--color--cta-alt) !important;
+}
+
+/* ==================================================================
+ * "Line Above" heading block style — small parallelogram bar above the
+ * heading text. Uses the same shape primitive as the buttons but with
+ * a smaller offset because the bar is thin (1rem tall) and a 14px
+ * slant would render almost as a triangle.
+ *
+ * Alignment: the bar mirrors the heading's text-alignment so a
+ * centered heading gets a centered bar.
+ * ================================================================== */
+.is-style-line-above::before {
+	--sni-slant: 8px;
+	content: "";
+	display: block;
+	width: 5rem;
+	height: 1rem;
+	margin-bottom: 0.75em;
+	background-color: var(--wp--preset--color--cta);
+	clip-path: polygon(var(--sni-slant) 0, 100% 0, calc(100% - var(--sni-slant)) 100%, 0 100%);
+}
+.is-style-line-above.has-text-align-center::before {
+	margin-left: auto;
+	margin-right: auto;
+}
+.is-style-line-above.has-text-align-right::before {
+	margin-left: auto;
+	margin-right: 0;
 }
 
 /* ==================================================================
@@ -83,15 +135,55 @@ Text Domain:    sg-sni
 }
 
 /* ==================================================================
- * Team grid block — 1x card layout.
- * Card has a subtle border that brightens to the cta gold on hover;
- * headshot fills the top half (1:1 aspect ratio); meta sits below.
- * Speaker variant uses the same card but exposes speaker_topics +
- * speaker_style on hover/reveal.
+ * Stats — "contained" variant. Use when the stats block is embedded
+ * inside another section (e.g., the homepage hero) instead of as a
+ * standalone full-width band. Drops the block's outer padding so cells
+ * align flush with the parent container's content edges, and left-
+ * aligns text (default rendering is centered).
+ *
+ * Apply via the editor: Block → Advanced → Additional CSS class(es):
+ *   sni-stats-contained
  * ================================================================== */
+.sni-stats-contained.sg-block-stats {
+	padding: 0;
+	text-align: left;
+}
+.sni-stats-contained .sg-block-stat,
+.sni-stats-contained .sg-block-stat * {
+	text-align: left;
+}
+
+/* ==================================================================
+ * Team grid block — 1x card layout.
+ * The .sni-team-grid-block wrapper takes alignfull when the block is
+ * full-width, but the inner content (heading, eyebrow, card grid) is
+ * constrained to wideSize so the cards don't sprawl across the viewport.
+ * Cards cap at 280px wide via the minmax max — keeps headshots a
+ * reasonable, scannable size on big screens regardless of card count.
+ * ================================================================== */
+.sni-team-grid-block {
+	padding-inline: var(--wp--preset--spacing--30);
+	padding-top: var(--wp--preset--spacing--60);
+	padding-bottom: var(--wp--preset--spacing--60);
+}
+.sni-team-grid-block > .is-style-eyebrow,
+.sni-team-grid-block > .sni-team-grid-heading,
+.sni-team-grid-block > .sni-team-grid {
+	max-width: var(--wp--style--global--wide-size, 1400px);
+	margin-left: auto;
+	margin-right: auto;
+}
+.sni-team-grid-block > .is-style-eyebrow {
+	margin-bottom: var(--wp--preset--spacing--10);
+}
+.sni-team-grid-block > .sni-team-grid-heading {
+	margin-top: 0;
+	margin-bottom: var(--wp--preset--spacing--40);
+}
 .sni-team-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
+	justify-content: center;
 	gap: var(--wp--preset--spacing--40);
 }
 .sni-team-card {
@@ -119,7 +211,9 @@ Text Domain:    sg-sni
 	aspect-ratio: 1 / 1;
 	background: var(--wp--preset--color--light-alt);
 	object-fit: cover;
+	object-position: center 20%;
 	width: 100%;
+	height: auto;
 	display: block;
 }
 .sni-team-card-body {
@@ -259,73 +353,190 @@ Text Domain:    sg-sni
 }
 
 /* ==================================================================
- * Single team_member layout — sticky meta sidebar + Gutenberg main.
- * The body content is whatever the editor authored in Gutenberg;
- * the sidebar renders ACF structured fields.
+ * Single team_member — page chrome.
+ *
+ * Layout is driven by the block template at templates/single-team_member.html
+ * which composes: header part → full-bleed Primary hero (diagonal-bottom) →
+ * two-column main (featured image + bio-links sidebar | post-content) →
+ * optional full-bleed video section → footer part. The CSS below targets
+ * the named hooks emitted by that template and by the small dynamic blocks
+ * (team-job-title, team-bio-links, team-video).
  * ================================================================== */
-.sni-bio-layout {
-	display: grid;
-	grid-template-columns: 320px 1fr;
-	gap: var(--wp--preset--spacing--60);
-	max-width: var(--wp--style--global--wide-size);
-	margin: 0 auto;
-	padding: var(--wp--preset--spacing--80) var(--wp--preset--spacing--40);
+
+/* Hero — Primary band with the diagonal-cut bottom shared with home page.
+ * .wp-block-post-title is the post-title block when rendered as h1; we
+ * scope to .sni-bio-hero so the rule doesn't leak into archive cards. */
+.sni-bio-hero .wp-block-post-title {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--custom--fs--h-1);
+	color: var(--wp--preset--color--light);
+	margin: 0;
+	line-height: 1.1;
 }
-@media (max-width: 900px) {
-	.sni-bio-layout {
-		grid-template-columns: 1fr;
-		gap: var(--wp--preset--spacing--40);
-	}
+.sni-team-job-title {
+	font-size: var(--wp--preset--font-size--large);
+	color: var(--wp--preset--color--light);
+	opacity: 0.85;
+	margin: 0;
+	text-align: center;
 }
-.sni-bio-sidebar {
+.sni-bio-hero .is-style-eyebrow {
+	color: var(--wp--preset--color--light);
+}
+
+/* Two-column main — sticky sidebar on the left.
+ * The block-editor's column gap is preserved via blockGap on the columns
+ * block; we just lift the sidebar to sticky and tighten the breakpoint
+ * where columns stack to vertical.
+ *
+ * Sticky `top` clears the site header (which the parent theme makes
+ * sticky at top:0, see classic-city-core/assets/blocks.css §"Header
+ * template part"). The header renders ~90px tall here (180px logo +
+ * spacing--20 padding); the offset adds breathing room beyond that so
+ * the sidebar doesn't kiss the nav as the user scrolls. */
+.sni-bio-aside {
 	position: sticky;
-	top: var(--wp--preset--spacing--40);
-	align-self: start;
+	top: 7rem;
+	align-self: flex-start;
 	display: flex;
 	flex-direction: column;
 	gap: var(--wp--preset--spacing--30);
 }
-.sni-bio-headshot {
-	width: 100%;
-	aspect-ratio: 1 / 1;
-	border-radius: var(--wp--custom--radius--default);
-	background: var(--wp--preset--color--light-alt);
-	object-fit: cover;
+.admin-bar .sni-bio-aside {
+	top: calc(7rem + 32px);
 }
-.sni-bio-meta-block {
+@media (max-width: 782px) {
+	.admin-bar .sni-bio-aside {
+		top: calc(7rem + 46px);
+	}
+}
+@media (max-width: 781px) {
+	.sni-bio-aside {
+		position: static;
+	}
+}
+.sni-bio-aside .wp-block-post-featured-image img {
+	border-radius: var(--wp--custom--radius--default);
+	box-shadow: var(--wp--preset--shadow--md);
+}
+.sni-bio-main > * + * {
+	margin-top: var(--wp--preset--spacing--30);
+}
+.sni-bio-main h2 {
+	font-family: var(--wp--preset--font-family--heading);
+	color: var(--wp--preset--color--primary);
+	font-size: var(--wp--custom--fs--h-3);
+	margin-top: var(--wp--preset--spacing--50);
+}
+.sni-bio-main h2:first-child {
+	margin-top: 0;
+}
+
+/* Bio Links sidebar block — LinkedIn icon + Recent Articles list. */
+.sni-bio-links {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+}
+.sni-bio-links-linkedin,
+.sni-bio-links-website {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--wp--preset--spacing--10);
+	color: var(--wp--preset--color--secondary);
+	text-decoration: none;
+	font-weight: 600;
+}
+.sni-bio-links-linkedin svg {
+	color: var(--wp--preset--color--secondary);
+	flex-shrink: 0;
+}
+.sni-bio-links-linkedin:hover,
+.sni-bio-links-website:hover {
+	color: var(--wp--preset--color--cta);
+}
+.sni-bio-links-linkedin:hover svg {
+	color: var(--wp--preset--color--cta);
+}
+.sni-bio-links-divider {
+	border: 0;
+	border-top: var(--wp--custom--border--default-width) solid var(--wp--preset--color--light-alt);
+	margin: var(--wp--preset--spacing--10) 0;
+}
+.sni-bio-links-heading {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--custom--fs--h-4);
+	color: var(--wp--preset--color--primary);
+	margin: 0;
+}
+.sni-bio-links-subheading {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--dark-alt);
+	margin: 0;
+}
+.sni-bio-links-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
-.sni-bio-meta-label {
-	font-size: var(--wp--preset--font-size--x-small);
-	letter-spacing: var(--wp--custom--eyebrow--letter-spacing);
-	text-transform: uppercase;
-	font-weight: 700;
+.sni-bio-links-list a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--wp--preset--color--secondary);
+	text-decoration: none;
+}
+.sni-bio-links-list a svg {
 	color: var(--wp--preset--color--cta);
+	flex-shrink: 0;
 }
-.sni-bio-meta-value,
-.sni-bio-meta-list {
-	font-size: var(--wp--preset--font-size--small);
-	color: var(--wp--preset--color--dark-alt);
-	margin: 0;
-	padding: 0;
-	list-style: none;
+.sni-bio-links-list a:hover {
+	color: var(--wp--preset--color--cta);
+	text-decoration: underline;
 }
-.sni-bio-meta-list li {
-	padding: 2px 0;
+
+/* Featured video section — pale tint band with a 16:9 responsive frame.
+ * Self-rendered by sg-sni/team-video so it only appears when the bio has
+ * a featured_video ACF value. */
+.sni-team-video-section {
+	background: var(--wp--preset--color--light-alt);
+	padding: var(--wp--preset--spacing--70) var(--wp--preset--spacing--40);
 }
-.sni-bio-name {
+.sni-team-video-inner {
+	max-width: var(--wp--style--global--wide-size);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--40);
+}
+.sni-team-video-heading {
+	text-align: center;
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: var(--wp--custom--fs--h-2);
 	color: var(--wp--preset--color--primary);
-	margin: 0 0 4px 0;
-	line-height: 1.15;
-}
-.sni-bio-title {
-	font-size: var(--wp--preset--font-size--large);
-	color: var(--wp--preset--color--dark-alt);
 	margin: 0;
+}
+.sni-team-video-frame {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	max-width: 960px;
+	margin: 0 auto;
+	width: 100%;
+	background: var(--wp--preset--color--dark);
+	border-radius: var(--wp--custom--radius--default);
+	overflow: hidden;
+	box-shadow: var(--wp--preset--shadow--md);
+}
+.sni-team-video-frame iframe,
+.sni-team-video-frame video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 
 /* ==================================================================

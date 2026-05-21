@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/team-bio-links",
+	"title": "Team Member Bio Links",
+	"description": "Sidebar list of external links pulled from ACF: LinkedIn icon, optional personal website, and the media_features repeater (published articles, interviews, etc.).",
+	"category": "theme",
+	"icon": "admin-links",
+	"textdomain": "sg-sni",
+	"render": "file:./render.php",
+	"supports": {
+		"html": false,
+		"inserter": false
+	}
+}

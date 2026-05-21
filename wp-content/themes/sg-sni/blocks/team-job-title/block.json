@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sg-sni/team-job-title",
+	"title": "Team Member Job Title",
+	"description": "Reads the current team_member's job_title ACF field and renders it as a styled subtitle. Used in the single-team_member hero.",
+	"category": "theme",
+	"icon": "businessperson",
+	"textdomain": "sg-sni",
+	"render": "file:./render.php",
+	"supports": {
+		"html": false,
+		"inserter": false,
+		"color": { "text": true, "background": false },
+		"typography": { "fontSize": true }
+	}
+}
