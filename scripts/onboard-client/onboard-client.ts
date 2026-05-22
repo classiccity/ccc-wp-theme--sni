@@ -13,9 +13,9 @@ import { WpeApiError } from './lib/wpe-api.js';
 // For now, the script's "config" is a hardcoded constant. Future iteration:
 // move to a per-client JSON file (e.g. clients/{slug}.json) or inquirer prompts.
 const CONFIG: Phase1Input = {
-  clientName: 'Georgia State Election Board',
-  slug: 'georgiaseb',
-  installName: 'georgiaseb',
+  clientName: 'Publicom Inc.',
+  slug: 'publicom',
+  installName: 'publicom',
   accountName: 'classiccity',
   environment: 'production',
 };
