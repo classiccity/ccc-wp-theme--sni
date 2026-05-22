@@ -2634,3 +2634,68 @@ header.wp-block-template-part
 @media (max-width: 600px) {
   .sg-block-link-pods { grid-template-columns: 1fr; }
 }
+
+/* ==================================================================
+ * Highlighted Image Gallery (classic-city-core/highlighted-image-gallery).
+ * Featured image above a thumbnail row. Click a thumbnail to make it
+ * primary. Column count comes from the inline `--ccc-gallery-cols`
+ * custom prop set on the block root. Border radius + block gap pull
+ * from the site defaults so this looks native to whatever palette
+ * + radius the active child theme ships.
+ * ================================================================== */
+.sg-block-highlighted-image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wp--style--block-gap, 20px);
+}
+.sg-block-highlighted-image-gallery__primary {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--wp--custom--radius--default, 0);
+  object-fit: cover;
+}
+.sg-block-highlighted-image-gallery__thumbs {
+  display: grid;
+  grid-template-columns: repeat(var(--ccc-gallery-cols, 5), minmax(0, 1fr));
+  gap: var(--wp--style--block-gap, 20px);
+}
+.sg-block-highlighted-image-gallery__thumb {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  border-radius: var(--wp--custom--radius--default, 0);
+  overflow: hidden;
+  outline: 0;
+  outline-offset: 2px;
+}
+.sg-block-highlighted-image-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--wp--custom--radius--default, 0);
+}
+.sg-block-highlighted-image-gallery__thumb.is-active,
+.sg-block-highlighted-image-gallery__thumb:focus-visible {
+  outline: 2px solid var(--wp--preset--color--primary, currentColor);
+}
+
+@media (max-width: 900px) {
+  /* Step down to 3 columns on tablets so thumbnails stay tappable even
+     when the admin configured a higher column count for desktop. */
+  .sg-block-highlighted-image-gallery__thumbs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  /* Two columns on phones. */
+  .sg-block-highlighted-image-gallery__thumbs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
